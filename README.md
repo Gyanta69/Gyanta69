@@ -55,3 +55,10 @@
 <br>
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=gyanta69" alt="gyanta69" /></a> </p>
+
+<div>
+ 
+ ## Contribution's Graph
+<br>
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=Gyanta69&hide_border=true&theme=material-palenight&radius=16" height="300" width="100%" align="left"/>
+</div>
