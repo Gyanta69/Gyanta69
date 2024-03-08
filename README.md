@@ -58,7 +58,7 @@
 
 <div>
  
- ## Contribution's Graph
+ ## 📈Contribution's Graph
 <br>
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Gyanta69&hide_border=true&theme=material-palenight&radius=16" height="300" width="100%" align="left"/>
 </div>
