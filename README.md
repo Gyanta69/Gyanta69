@@ -13,7 +13,7 @@
 
 - 📫 How to reach me **khadkapragyan84@gmail.com**
 
-- ⚡ Fun fact **Don't be gae.**
+- ⚡ Fun fact **The name Gyanta comes from Bhanta🍆**
  <br>
 
 ## 🌐 Socials
