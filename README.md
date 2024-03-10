@@ -46,13 +46,16 @@
 <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original-wordmark.svg" alt="css3" width="40" height="40"/></a>
 <br><br>
 
-
+## ✍️ Github Status
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=gyanta69&show_icons=true&theme=radical&locale=en&layout=compact" alt="gyanta69" /></p>
 
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=gyanta69&show_icons=true&theme=dark&locale=en" alt="gyanta69" /></p>
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=gyanta69&theme=dark" alt="gyanta69" /></p>
 <br>
+
+ ##  🏆 Github Trophies
+ <br>
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=gyanta69" alt="gyanta69" /></a> </p>
 
