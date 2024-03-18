@@ -11,7 +11,7 @@
 
 - 🌱 I’m currently learning **Django , JavaScript**
 
-- 📫 How to reach me **khadkapragyan84@gmail.com**
+- 📫 Reach me **khadkapragyan84@gmail.com**
 
 - ⚡ Fun fact **The name Gyanta comes from Bhanta🍆**
  <br>
