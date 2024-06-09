@@ -13,7 +13,7 @@
 
 - 📫 Reach me **khadkapragyan84@gmail.com**
 
-- ⚡ Fun fact **The name Gyanta comes from Bhanta🍆**
+- 🍜 **I enjoy Shin Ramyun**
  <br>
 
 ## 🌐 Socials
