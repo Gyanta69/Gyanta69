@@ -1,35 +1,72 @@
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=D9BED1&height=120&section=header" alt="header"/> 
+
+<a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&weight=500&size=25&duration=4500&pause=500&color=D9BED1&width=435&lines=Hello%2C+it's+Daria+Stanilevici;Business+Analyst" alt="Business Analyst"/>
+</a>
+
 ![logo](https://github.com/Gyanta69/Gyanta69/blob/main/Banner.png)
 <h1 align="center">Hi 👋, I'm Pragyan Khadka</h1>
 <h3 align="center">A passionate frontend developer & BIT student from Nepal</h3>
 
+<h2 align="center">🎓 My Multi-Cloud Certifications</h2>
 
+<div align="center">
+<table>
+  <tr>
+    <!-- Icon Row -->
+    <td align="center">
+      <a href="https://www.credly.com/badges/97d96a7c-06f8-4537-a102-d0a41184ae6f">
+        <img src="./badges/aws-cloud-machinelearningNLP.png" width="120" alt="AWS Badge"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.credly.com/badges/1c93f69a-6969-4cb6-a1c5-3ed7d5baba6d">
+        <img src="./badges/machinelearningfoundations.png" width="120" alt="Azure Badge"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.credly.com/badges/e127022f-3ecb-48cb-9156-bfba9335e9b5">
+        <img src="./badges/dataengineering.png" width="120" alt="GCP Badge"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.credly.com/badges/364c325d-78fd-483d-b516-3af698fa6b4d">
+        <img src="./badges/cloudfoundation.png" width="120" alt="CompTIA Badge"/>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <!-- Text Row -->
+    <td align="center">
+      🗓️ December 2024 <br/>
+      🔗 <a href="https://www.credly.com/badges/97d96a7c-06f8-4537-a102-d0a41184ae6f">Credential</a><br/>
+      <em>Validates AWS Cloud concepts, billing, and infrastructure.</em>
+    </td>
+    <td align="center">
+      🗓️ December 2024 <br/>
+      🔗 <a href="https://www.credly.com/badges/1c93f69a-6969-4cb6-a1c5-3ed7d5baba6d">Credential</a><br/>
+      <em>Covers Azure services, governance, and pricing models.</em>
+    </td>
+    <td align="center">
+      🗓️ November 2024 <br/>
+      🔗 <a href="https://www.credly.com/badges/e127022f-3ecb-48cb-9156-bfba9335e9b5">Credential</a><br/>
+      <em>Tests GCP product knowledge, AI/ML, and business use cases.</em>
+    </td>
+    <td align="center">
+      🗓️ November 2024 <br/>
+      🔗 <a href="https://www.credly.com/badges/364c325d-78fd-483d-b516-3af698fa6b4d">Credential</a><br/>
+      <em>Provides vendor-neutral cloud knowledge (governance & adoption).</em>
+    </td>
+  </tr>
+</table>
 
-<h3>Snippets about me:<span><p align="left"> <img src="https://komarev.com/ghpvc/?username=gyanta69&label=Profile%20views&color=1c1c1c&style=flat" alt="gyanta69" /> </p>
-</span></h3>
+</div>
 
-- 🔭 I’m currently working on **My Portfolio**
+### Main skills
+[![My Skills](https://skillicons.dev/icons?i=py,regex,github,git,mongodb,mysql,eclipse,java,spring,js,nodejs,react,express,jest,jenkins,cpp,cs,dotnet,html,css,bootstrap,pug,php,androidstudio,blender,ps,notion)](https://skillicons.dev)
 
-- 🌱 I’m currently learning **Django , JavaScript**
-
-- 📫 Reach me **khadkapragyan84@gmail.com**
-
-- 🍜 **I enjoy Shin Ramyun**
- <br>
-
-## 🌐 Socials
-<p align="left">
-<a href="https://www.linkedin.com/in/pragyan-khadka-62b08827b/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="pragyan khadka" height="30" width="40" /></a>
-<a href="https://fb.com/pragyan khadka" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="pragyan khadka" height="30" width="40" /></a>
-<a href="https://instagram.com/gyan_arp" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="gyan_arp" height="30" width="40" /></a>
-<a href="https://discord.gg/shinn8686" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="shinn8686" height="30" width="40" /></a>
-</p>
-<br>
-
-## 📄 Languages
-<p align="left"> 
-  <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a>   <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/></a> 
-</p>
-<br>
+### Studying
+[![Learning](https://skillicons.dev/icons?i=aws,azure,ruby)](https://skillicons.dev)
 
 ## ⚙ Tools & Technologies
 
@@ -64,3 +101,5 @@
 <br>
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Gyanta69&hide_border=true&theme=material-palenight&radius=16" height="300" width="100%" align="left"/>
 </div>
+
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=D9BED1&height=120&section=footer" alt="footer"/>
