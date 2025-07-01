@@ -1,12 +1,9 @@
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=D9BED1&height=120&section=header" alt="header"/> 
 
 <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&weight=500&size=25&duration=4500&pause=500&color=D9BED1&width=435&lines=Hello%2C+it's+Pragyan+Khadka;Software+Engineer" alt="Software Engineer"/>
+    <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&weight=500&size=25&duration=8500&pause=500&color=D9BED1&width=435&lines=Hello%2C+it's+Pragyan+Khadka;A+passionate+frontend+developer." alt="Software Engineer"/>
 </a>
 
-![logo](https://github.com/Gyanta69/Gyanta69/blob/main/Banner.png)
-<h1 align="center">Hi 👋, I'm Pragyan Khadka</h1>
-<h3 align="center">A passionate frontend developer & BIT student from Nepal</h3>
 
 <h2 align="center">🎓 My Multi-Cloud Certifications</h2>
 
@@ -63,10 +60,10 @@
 </div>
 
 ### Main skills
-[![My Skills](https://skillicons.dev/icons?i=py,regex,github,git,mongodb,mysql,eclipse,java,spring,js,nodejs,react,express,jest,jenkins,cpp,cs,dotnet,html,css,bootstrap,pug,php,androidstudio,blender,ps,notion)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=py,github,git,mysql,eclipse,java,js,nodejs,react,cs,dotnet,html,css,bootstrap,notion)](https://skillicons.dev)
 
 ### Studying
-[![Learning](https://skillicons.dev/icons?i=aws,azure,ruby)](https://skillicons.dev)
+[![Learning](https://skillicons.dev/icons?i=aws,rider,dotnet)](https://skillicons.dev)
 
 ## ⚙ Tools & Technologies
 
