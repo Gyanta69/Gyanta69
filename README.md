@@ -13,22 +13,22 @@
     <!-- Icon Row -->
     <td align="center">
       <a href="https://www.credly.com/badges/97d96a7c-06f8-4537-a102-d0a41184ae6f">
-        <img src="./badges/aws-cloud-machinelearningNLP.png" width="120" alt="AWS Badge"/>
+        <img src="./badges/aws-cloud-machinelearningNLP.png" width="120" alt="ML with NLP Badge"/>
       </a>
     </td>
     <td align="center">
       <a href="https://www.credly.com/badges/1c93f69a-6969-4cb6-a1c5-3ed7d5baba6d">
-        <img src="./badges/machinelearningfoundations.png" width="120" alt="Azure Badge"/>
+        <img src="./badges/machinelearningfoundations.png" width="120" alt="ML Foundation Badge"/>
       </a>
     </td>
     <td align="center">
       <a href="https://www.credly.com/badges/e127022f-3ecb-48cb-9156-bfba9335e9b5">
-        <img src="./badges/dataengineering.png" width="120" alt="GCP Badge"/>
+        <img src="./badges/dataengineering.png" width="120" alt="Data Engineering Badge"/>
       </a>
     </td>
     <td align="center">
       <a href="https://www.credly.com/badges/364c325d-78fd-483d-b516-3af698fa6b4d">
-        <img src="./badges/cloudfoundation.png" width="120" alt="CompTIA Badge"/>
+        <img src="./badges/cloudfoundation.png" width="120" alt="Cloud Foundation Badge"/>
       </a>
     </td>
   </tr>
