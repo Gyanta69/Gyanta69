@@ -13,22 +13,22 @@
     <!-- Icon Row -->
     <td align="center">
       <a href="https://www.credly.com/badges/97d96a7c-06f8-4537-a102-d0a41184ae6f">
-        <img src="./badges/aws-cloud-machinelearningNLP.png" width="120" alt="ML with NLP Badge"/>
+        <img src="aws/mlwithnlpbadge.png" width="120" alt="ML with NLP Badge"/>
       </a>
     </td>
     <td align="center">
       <a href="https://www.credly.com/badges/1c93f69a-6969-4cb6-a1c5-3ed7d5baba6d">
-        <img src="./badges/machinelearningfoundations.png" width="120" alt="ML Foundation Badge"/>
+        <img src="aws/mlfoundationbadge.png" width="120" alt="ML Foundation Badge"/>
       </a>
     </td>
     <td align="center">
       <a href="https://www.credly.com/badges/e127022f-3ecb-48cb-9156-bfba9335e9b5">
-        <img src="./badges/dataengineering.png" width="120" alt="Data Engineering Badge"/>
+        <img src="aws/dataengineeringbadge.png" width="120" alt="Data Engineering Badge"/>
       </a>
     </td>
     <td align="center">
       <a href="https://www.credly.com/badges/364c325d-78fd-483d-b516-3af698fa6b4d">
-        <img src="./badges/cloudfoundation.png" width="120" alt="Cloud Foundation Badge"/>
+        <img src="aws/cloudfoundationbadge.png" width="120" alt="Cloud Foundation Badge"/>
       </a>
     </td>
   </tr>
@@ -37,22 +37,22 @@
     <td align="center">
       🗓️ December 2024 <br/>
       🔗 <a href="https://www.credly.com/badges/97d96a7c-06f8-4537-a102-d0a41184ae6f">Credential</a><br/>
-      <em>Validates AWS Cloud concepts, billing, and infrastructure.</em>
+      <em>Validates AWS Machine Learning with Natural Language Processing.</em>
     </td>
     <td align="center">
       🗓️ December 2024 <br/>
       🔗 <a href="https://www.credly.com/badges/1c93f69a-6969-4cb6-a1c5-3ed7d5baba6d">Credential</a><br/>
-      <em>Covers Azure services, governance, and pricing models.</em>
+      <em>Covers Machine Learning foundations.</em>
     </td>
     <td align="center">
       🗓️ November 2024 <br/>
       🔗 <a href="https://www.credly.com/badges/e127022f-3ecb-48cb-9156-bfba9335e9b5">Credential</a><br/>
-      <em>Tests GCP product knowledge, AI/ML, and business use cases.</em>
+      <em>Validated Data Science knowledge.</em>
     </td>
     <td align="center">
       🗓️ November 2024 <br/>
       🔗 <a href="https://www.credly.com/badges/364c325d-78fd-483d-b516-3af698fa6b4d">Credential</a><br/>
-      <em>Provides vendor-neutral cloud knowledge (governance & adoption).</em>
+      <em>Validates AWS Cloud concepts, billing, and infrastructure.</em>
     </td>
   </tr>
 </table>
