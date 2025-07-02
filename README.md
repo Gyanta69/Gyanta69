@@ -1,7 +1,7 @@
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=D9BED1&height=120&section=header" alt="header"/> 
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=00ffff&height=120&section=header" alt="header"/> 
 
 <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&weight=500&size=25&duration=8500&pause=500&color=D9BED1&width=435&lines=Hello%2C+it's+Pragyan+Khadka;A+passionate+frontend+developer." alt="Software Engineer"/>
+    <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&weight=500&size=25&duration=8500&pause=500&color=00ffff&width=435&lines=Hello%2C+it's+Pragyan+Khadka;A+passionate+frontend+developer." alt="Software Engineer"/>
 </a>
 
 
@@ -59,32 +59,25 @@
 
 </div>
 
-### Main skills
+### 👩‍💻 Main skills
+
+
 [![My Skills](https://skillicons.dev/icons?i=py,github,git,mysql,eclipse,java,js,nodejs,react,cs,dotnet,html,css,bootstrap,notion)](https://skillicons.dev)
-
-### Studying
-[![Learning](https://skillicons.dev/icons?i=aws,rider,dotnet)](https://skillicons.dev)
-
-## ⚙ Tools & Technologies
-
-<p align="left">
-<a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/django.svg" alt="django" width="40" height="40"/> </a> 
-<a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a>
-<a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a>
-<a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a>
-</p>
 <br>
 
-## 🖊 Editors & IDEs
-<a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original-wordmark.svg" alt="css3" width="40" height="40"/></a>
-<br><br>
+### 🤓 Studying
+
+
+[![Learning](https://skillicons.dev/icons?i=aws,rider,dotnet)](https://skillicons.dev)
+<br>
+
+
 
 ## ✍️ Github Status
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=gyanta69&show_icons=true&theme=radical&locale=en&layout=compact" alt="gyanta69" /></p>
 
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=gyanta69&show_icons=true&theme=dark&locale=en" alt="gyanta69" /></p>
 
-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=gyanta69&theme=dark" alt="gyanta69" /></p>
 <br>
 
  ##  🏆 Github Trophies
@@ -99,4 +92,4 @@
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Gyanta69&hide_border=true&theme=material-palenight&radius=16" height="300" width="100%" align="left"/>
 </div>
 
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=D9BED1&height=120&section=footer" alt="footer"/>
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=00ffff&height=120&section=footer" alt="footer"/>
