@@ -62,7 +62,7 @@
 ### 👩‍💻 Main skills
 
 
-[![My Skills](https://skillicons.dev/icons?i=py,github,git,mysql,eclipse,java,js,nodejs,react,cs,dotnet,html,css,bootstrap,notion)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=py,github,git,mysql,eclipse,java,js,react,cs,dotnet,html,css,bootstrap,notion)](https://skillicons.dev)
 <br>
 
 ### 🤓 Studying
