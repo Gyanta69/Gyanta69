@@ -2,15 +2,14 @@
 """Render two ASCII koi circling as a yin-yang, as a self-contained animated SVG.
 
 GitHub READMEs can't run JavaScript, but they do play CSS animations inside
-SVG images. Each frame is rasterised to a grid of coloured glyphs (top-down
-koi shaded by the light, translucent fins, a glowing wake on a dotted pond)
-and the frames are flipped with CSS keyframes.
+SVG images. Each frame is rasterised to a grid of grey glyphs (top-down koi
+shaded by the light, translucent fins, wakes on a rippling ocean) and the
+frames are flipped with CSS keyframes.
 
     python3 scripts/koi_yinyang.py                      # writes assets/koi-yinyang.svg
     python3 scripts/koi_yinyang.py --preview 30 out.svg # only frame 30, static
 """
 import math
-import random
 import sys
 from pathlib import Path
 from xml.sax.saxutils import escape
@@ -36,27 +35,33 @@ FIN_GLYPHS = ".:'`~"
 RIDGE_GLYPHS = "@8%"
 
 KOI = [
-    {   # yang: white kohaku with red patches and a dark spot on its head
+    {   # yang: a white koi with black markings and a black spot on its head
         "head": math.pi / 2,
-        "skin": ["#9aa6b6", "#cfd7e2", "#ffffff"],
-        "patch": ["#a8231c", "#e83a2c", "#ff6a55"],
-        "fin": ["#b8c3d1", "#ff9a8a"],
-        "spot": ("@", "#1b1e26"),
-        "eye": ("o", "#1b1e26"),
-        "wake": "#6ee6ff",
+        "skin": ["#a0a0a0", "#d6d6d6", "#ffffff"],
+        "patch": ["#2e2e2e", "#404040", "#555555"],
+        "fin": ["#b5b5b5", "#e6e6e6"],
+        "edge": "#ffffff",
+        "spot": ("@", "#121212"),
+        "eye": ("o", "#121212"),
+        "wake": "#f0f0f0",
         "seed": 1.7,
     },
-    {   # yin: black koi with gold patches and a white spot on its head
+    {   # yin: a black koi with white markings and a white spot on its head
         "head": -math.pi / 2,
-        "skin": ["#4a5265", "#768099", "#aab4cb"],
-        "patch": ["#b8730c", "#f0a020", "#ffd060"],
-        "fin": ["#8a94ab", "#f0b850"],
+        "skin": ["#3c3c3c", "#575757", "#747474"],
+        "patch": ["#bcbcbc", "#e2e2e2", "#ffffff"],
+        "fin": ["#6e6e6e", "#9a9a9a"],
+        "edge": "#cfcfcf",
         "spot": ("@", "#ffffff"),
         "eye": ("o", "#ffffff"),
-        "wake": "#ffb627",
+        "wake": "#9a9a9a",
         "seed": 4.2,
     },
 ]
+
+# Raindrops on the ocean: (x, y) in rows from the centre, and when in the
+# loop each one lands. Each drop repeats three times per turn.
+DROPS = [(-27, -17, 0.0), (28, 16, 0.33), (-25, 17, 0.66), (29, -18, 0.5)]
 
 
 def smoothstep(a, b, x):
@@ -193,7 +198,7 @@ def render_koi(grid, koi, turn, phase):
         elif math.hypot((s - 0.16) / 0.055, v / 0.4) < 1:
             grid[r][c] = (*koi["spot"], 3)
         elif count < 5 or abs(v) > 0.92:
-            grid[r][c] = (EDGE_GLYPHS[(c + r) % len(EDGE_GLYPHS)], koi["skin"][2], 2)
+            grid[r][c] = (EDGE_GLYPHS[(c + r) % len(EDGE_GLYPHS)], koi["edge"], 2)
         elif 0.3 < s < 0.62 and abs(v) < 0.1:
             grid[r][c] = (RIDGE_GLYPHS[(c + r) % len(RIDGE_GLYPHS)], (koi["patch"] if marked else koi["skin"])[max(0, level - 1)], 2)
         else:
@@ -202,21 +207,37 @@ def render_koi(grid, koi, turn, phase):
             grid[r][c] = (glyph, palette[level], 2)
 
 
-def yinyang(grid, turn, blocked):
-    """Dotted yin-yang disc in the rotating frame, kept clear of the koi."""
+def water(grid, t, turn):
+    """Grey rippling ocean: a swell, rings spreading from the centre and from
+    raindrops. The disc is bright water on the yang half and dark on yin."""
     for r in range(ROWS):
         for c in range(COLS):
-            x, y = (c + 0.5 - CX) * ASPECT, r + 0.5 - CY
-            if math.hypot(x, y) >= R - 0.5 or grid[r][c] is not None or (c, r) in blocked:
+            if grid[r][c] is not None:
                 continue
-            lx, ly = rotate(x, y, -turn)
-            light = (lx > 0 or math.hypot(lx, ly - R / 2) < R / 2) and math.hypot(lx, ly + R / 2) >= R / 2
-            if math.hypot(lx, ly - R / 2) < R / 7:
-                light = False
-            elif math.hypot(lx, ly + R / 2) < R / 7:
-                light = True
-            if light and (c + r) % 2 == 0:
-                grid[r][c] = (":", "#4f86b3", 0)
+            x, y = (c + 0.5 - CX) * ASPECT, r + 0.5 - CY
+            d = math.hypot(x, y)
+            if abs(d - R) < 0.45:
+                grid[r][c] = (":", "#8c8c8c", 0)
+                continue
+            h = 0.2 * math.sin(0.42 * x + 0.25 * y - math.tau * 2 * t)
+            h += 0.4 * math.sin(0.75 * d - math.tau * 4 * t) * math.exp(-max(0.0, d - R) / 14)
+            for dx, dy, lands in DROPS:
+                age = (3 * t - lands) % 1
+                ring = math.hypot(x - dx, y - dy) - age * 26
+                h += 1.5 * (1 - age) ** 0.7 * math.exp(-ring * ring / 3.5) * math.cos(ring * 1.4)
+            if d < R:
+                lx, ly = rotate(x, y, -turn)
+                light = (lx > 0 or math.hypot(lx, ly - R / 2) < R / 2) and math.hypot(lx, ly + R / 2) >= R / 2
+                if math.hypot(lx, ly - R / 2) < R / 7:
+                    light = False
+                elif math.hypot(lx, ly + R / 2) < R / 7:
+                    light = True
+                color = "#b4b4b4" if light else "#262626"
+                h += 0.35 if light else -0.2  # bright water is busier, dark water calmer
+            else:
+                color = "#565656"
+            glyph = "~" if h > 0.75 else ("-" if h > 0.35 else ("." if h > -0.05 else " "))
+            grid[r][c] = (glyph, color, 0)
 
 
 def wake(grid, koi, turn, blocked):
@@ -235,59 +256,6 @@ def wake(grid, koi, turn, blocked):
             if fade > 0.12 and grid[r][c] is None and (c, r) not in blocked:
                 glyph = "*" if fade > 0.75 else (":" if fade > 0.4 else ".")
                 grid[r][c] = (glyph, koi["wake"], "a" if fade > 0.4 else "c")
-
-
-def pond():
-    """Static dotted water, the yin-yang rim, lily pads and lotus flowers."""
-    rng = random.Random(69)
-    grid = [[None] * COLS for _ in range(ROWS)]
-    for r in range(ROWS):
-        for c in range(COLS):
-            x, y = (c + 0.5 - CX) * ASPECT, r + 0.5 - CY
-            d = math.hypot(x, y)
-            if d < R - 0.5:
-                continue
-            if abs(d - 1.0 * R) < 0.45:
-                grid[r][c] = (":", "#1f4a63")
-            elif (c + r) % 2 == 0:
-                tint = rng.choice(["#13203a"] * 12 + ["#1d3a3a", "#3a1d40", "#22285a"])
-                grid[r][c] = (".", "#1b3550" if d < R else tint)
-
-    def put(c, r, glyph, color):
-        if 0 <= r < ROWS and 0 <= c < COLS:
-            grid[r][c] = (glyph, color)
-
-    def lily(cc, rr, rad, notch_at, lotus):
-        for r in range(int(rr - rad) - 1, int(rr + rad) + 2):
-            for c in range(int(cc - rad / ASPECT) - 1, int(cc + rad / ASPECT) + 2):
-                x, y = (c + 0.5 - cc) * ASPECT, r + 0.5 - rr
-                d, a = math.hypot(x, y), math.atan2(y, x)
-                if d < rad and abs((a - notch_at + math.pi) % math.tau - math.pi) > 0.32:
-                    if d > rad - 0.7:
-                        put(c, r, "o", "#2f8f4e")
-                    elif abs(math.sin(a * 4)) < 0.16:
-                        put(c, r, ":", "#7ddc8f")
-                    else:
-                        put(c, r, "#" if d < rad * 0.6 else "=", "#3cb563" if (c + r) % 2 else "#2f9e55")
-        if lotus:
-            for r in range(int(rr - 4), int(rr + 5)):
-                for c in range(int(cc - 8), int(cc + 9)):
-                    x, y = (c + 0.5 - cc) * ASPECT, r + 0.5 - rr
-                    d, a = math.hypot(x, y), math.atan2(y, x)
-                    outer = 3.4 * (0.5 + 0.5 * abs(math.cos(a * 2.5)))
-                    inner = 2.2 * (0.5 + 0.5 * abs(math.cos(a * 2.5 + 0.6)))
-                    if d < 0.8:
-                        put(c, r, "@", "#ffd166")
-                    elif d < inner:
-                        put(c, r, "*", "#ffe0ec")
-                    elif d < outer:
-                        put(c, r, "%" if d < outer - 0.6 else "'", "#ff8fb8" if d < outer - 0.6 else "#ff5d95")
-
-    lily(13, 8, 4.5, 0.8, True)
-    lily(24, 42, 3.2, 2.5, False)
-    lily(104, 40, 5, -2.2, True)
-    lily(110, 9, 3, 1.9, False)
-    return grid
 
 
 def rows_svg(grid, classes):
@@ -327,8 +295,6 @@ def build(only_frame=None):
             cls += f" o{key[1]}"
         return cls
 
-    background = rows_svg([[(cell[0], cell[1]) if cell else None for cell in row] for row in pond()], classes)
-
     frames = []
     step = DURATION / FRAMES
     for i in range(FRAMES):
@@ -342,7 +308,7 @@ def build(only_frame=None):
             render_koi(grid, koi, turn, phase)
         for koi in KOI:
             wake(grid, koi, turn, ())
-        yinyang(grid, turn, ())
+        water(grid, t, turn)
         body = rows_svg(grid, classes)
         if only_frame is not None:
             frames.append(f"<g>{body}</g>")
@@ -354,14 +320,13 @@ def build(only_frame=None):
         f".f{{opacity:0;animation:fr {DURATION}s step-end infinite}}"
         f"@keyframes fr{{0%{{opacity:1}}{100 / FRAMES:.4f}%{{opacity:0}}100%{{opacity:0}}}}"
         "@media (prefers-reduced-motion:reduce){.f{animation:none}.f0{opacity:1}}")
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Two ASCII koi, one white and red, one black and gold, circling each other as a yin-yang in a dotted pond">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Two ASCII koi, one white and one black, circling each other as a yin-yang on a rippling ocean">
 <style>
 text{{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:{FONT}px;white-space:pre}}
 {palette}.oa{{opacity:.95}}.ob{{opacity:.6}}.oc{{opacity:.3}}
 {animation}
 </style>
-<rect width="{W}" height="{H}" fill="#05070d"/>
-{background}
+<rect width="{W}" height="{H}" fill="#050505"/>
 {"".join(frames)}
 </svg>
 """

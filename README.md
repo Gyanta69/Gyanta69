@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/koi-yinyang.svg" width="100%" alt="Two ASCII koi, one white and red, one black and gold, circling each other as a yin-yang in a dotted pond"/>
+<img src="assets/koi-yinyang.svg" width="100%" alt="Two ASCII koi, one white and one black, circling each other as a yin-yang on a rippling ocean"/>
 
 </div>
 
