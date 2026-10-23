@@ -1,9 +1,8 @@
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=00ffff&height=120&section=header" alt="header"/> 
+<div align="center">
 
-<a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&weight=500&size=25&duration=8500&pause=500&color=00ffff&width=435&lines=Hello%2C+it's+Pragyan+Khadka;A+passionate+frontend+developer." alt="Software Engineer"/>
-</a>
+<img src="assets/ascii-planet.svg" width="100%" alt="Animated ASCII ringed planet with an orbiting moon"/>
 
+</div>
 
 <h2 align="center">🎓 My Multi-Cloud Certifications</h2>
 
@@ -58,10 +57,3 @@
 </table>
 
 </div>
- 
- ## 📈Contribution's Graph
-<br>
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Gyanta69&hide_border=true&theme=material-palenight&radius=16" height="300" width="100%" align="left"/>
-</div>
-
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=00ffff&height=120&section=footer" alt="footer"/>
