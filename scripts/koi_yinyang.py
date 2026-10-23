@@ -2,12 +2,12 @@
 """Render two ASCII koi circling as a yin-yang, as a self-contained animated SVG.
 
 GitHub READMEs can't run JavaScript, but they do play CSS animations inside
-SVG images. Each frame is rasterised to a grid of grey glyphs (top-down koi
-shaded by the light, translucent fins, wakes on a rippling ocean) and the
-frames are flipped with CSS keyframes.
+SVG images. Frames are rasterised to a grid of grey glyphs (top-down koi
+shaded by the light, translucent fins, wakes on a rippling ocean) and played
+as two crossfading flipbooks: the koi at 15 fps and the slower ocean at 7.5.
 
     python3 scripts/koi_yinyang.py                      # writes assets/koi-yinyang.svg
-    python3 scripts/koi_yinyang.py --preview 30 out.svg # only frame 30, static
+    python3 scripts/koi_yinyang.py --preview 30 out.svg # koi frame 30, static
 """
 import math
 import sys
@@ -20,7 +20,8 @@ CW, CH = 9, 16  # character cell in px
 ASPECT = CW / CH  # converts columns into row-sized world units
 W, H = COLS * CW, ROWS * CH
 
-FRAMES = 120
+KOI_FRAMES = 180
+WATER_FRAMES = 90  # must divide KOI_FRAMES
 DURATION = 12.0  # one full turn of the yin-yang
 BEATS = 12  # tail beats per turn, an integer so the loop is seamless
 
@@ -283,6 +284,48 @@ def rows_svg(grid, classes):
     return "".join(out)
 
 
+def koi_frame(i):
+    t = i / KOI_FRAMES
+    grid = [[None] * COLS for _ in range(ROWS)]
+    for koi in KOI:
+        render_koi(grid, koi, math.tau * t, math.tau * BEATS * t)
+    for koi in KOI:
+        wake(grid, koi, math.tau * t, ())
+    return grid
+
+
+def water_frame(j, koi_grids):
+    """Ocean frame j, leaving a hole wherever the koi are while it is on screen."""
+    t = j / WATER_FRAMES
+    ratio = KOI_FRAMES // WATER_FRAMES
+    grid = [[None] * COLS for _ in range(ROWS)]
+    for k in range(ratio * (j - 1), ratio * (j + 1) + 1):
+        for r, row in enumerate(koi_grids[k % KOI_FRAMES]):
+            for c, cell in enumerate(row):
+                if cell is not None:
+                    grid[r][c] = True
+    water(grid, t, math.tau * t)
+    return [[cell if cell is not True else None for cell in row] for row in grid]
+
+
+def flipbook(name, bodies):
+    """Each frame fades in on top of the one before, which is then dropped.
+
+    Unchanged glyphs never dim mid-fade. The first frame gets an extra copy
+    at the end of the document so the loop also fades in on top.
+    """
+    n = len(bodies)
+    step = DURATION / n
+    p1, p2 = 100 / n, 200 / n
+    css = (f".{name}{{opacity:0;animation:{name} {DURATION}s linear infinite}}"
+           f"@keyframes {name}{{0%{{opacity:0}}{p1:.4f}%{{opacity:1}}{p2:.4f}%{{opacity:1}}{p2 + 0.001:.4f}%{{opacity:0}}100%{{opacity:0}}}}"
+           f"@keyframes {name}w{{0%{{opacity:0}}{p1:.4f}%{{opacity:1}}{p1 + 0.001:.4f}%{{opacity:0}}100%{{opacity:0}}}}")
+    groups = [f'<g class="{name}{f" {name}0" if i == 0 else ""}" style="animation-delay:{(i - 1) * step:.3f}s">{body}</g>'
+              for i, body in enumerate(bodies)]
+    groups.append(f'<g class="{name}" style="animation-name:{name}w;animation-delay:{-step:.3f}s">{bodies[0]}</g>')
+    return css, "".join(groups)
+
+
 def build(only_frame=None):
     names = {}
 
@@ -295,39 +338,31 @@ def build(only_frame=None):
             cls += f" o{key[1]}"
         return cls
 
-    frames = []
-    step = DURATION / FRAMES
-    for i in range(FRAMES):
-        if only_frame is not None and i != only_frame:
-            continue
-        t = i / FRAMES
-        turn = math.tau * t
-        phase = math.tau * BEATS * t
-        grid = [[None] * COLS for _ in range(ROWS)]
-        for koi in KOI:
-            render_koi(grid, koi, turn, phase)
-        for koi in KOI:
-            wake(grid, koi, turn, ())
-        water(grid, t, turn)
-        body = rows_svg(grid, classes)
-        if only_frame is not None:
-            frames.append(f"<g>{body}</g>")
-        else:
-            frames.append(f'<g class="f{" f0" if i == 0 else ""}" style="animation-delay:{i * step:.2f}s">{body}</g>')
+    ratio = KOI_FRAMES // WATER_FRAMES
+    if only_frame is not None:
+        j = round(only_frame / ratio) % WATER_FRAMES
+        needed = {k % KOI_FRAMES for k in range(ratio * (j - 1), ratio * (j + 1) + 1)} | {only_frame}
+        koi_grids = {k: koi_frame(k) for k in needed}
+        water_svg = rows_svg(water_frame(j, koi_grids), classes)
+        koi_svg = rows_svg(koi_grids[only_frame], classes)
+        css, layers = "", f"<g>{water_svg}</g><g>{koi_svg}</g>"
+    else:
+        koi_grids = [koi_frame(i) for i in range(KOI_FRAMES)]
+        water_css, water_layer = flipbook("w", [rows_svg(water_frame(j, koi_grids), classes) for j in range(WATER_FRAMES)])
+        koi_css, koi_layer = flipbook("k", [rows_svg(grid, classes) for grid in koi_grids])
+        css = (water_css + koi_css
+               + "@media (prefers-reduced-motion:reduce){.w,.k{animation:none}.w0,.k0{opacity:1}}")
+        layers = water_layer + koi_layer
 
     palette = "".join(f".{name}{{fill:{color}}}" for color, name in names.items())
-    animation = "" if only_frame is not None else (
-        f".f{{opacity:0;animation:fr {DURATION}s step-end infinite}}"
-        f"@keyframes fr{{0%{{opacity:1}}{100 / FRAMES:.4f}%{{opacity:0}}100%{{opacity:0}}}}"
-        "@media (prefers-reduced-motion:reduce){.f{animation:none}.f0{opacity:1}}")
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Two ASCII koi, one white and one black, circling each other as a yin-yang on a rippling ocean">
 <style>
 text{{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:{FONT}px;white-space:pre}}
 {palette}.oa{{opacity:.95}}.ob{{opacity:.6}}.oc{{opacity:.3}}
-{animation}
+{css}
 </style>
 <rect width="{W}" height="{H}" fill="#050505"/>
-{"".join(frames)}
+{layers}
 </svg>
 """
 
