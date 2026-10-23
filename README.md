@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/ascii-planet.svg" width="100%" alt="Animated ASCII ringed planet with an orbiting moon"/>
+<img src="assets/himalayan-sakura.svg" width="100%" alt="Himalayan Sakura: an animated ASCII anime short about a traveler climbing from a sakura tree at dawn, through a sea of clouds, to a starlit summit"/>
 
 </div>
 
