@@ -4,7 +4,7 @@
 GitHub READMEs can't run JavaScript, but they do play CSS animations inside
 SVG images. Frames are rasterised to a grid of grey glyphs (top-down koi
 shaded by the light, translucent fins, wakes on a rippling ocean) and played
-as two crossfading flipbooks: the koi at 15 fps and the slower ocean at 7.5.
+as two crossfading flipbooks: the koi at 24 fps and the slower ocean at 8.
 
     python3 scripts/koi_yinyang.py                      # writes assets/koi-yinyang.svg
     python3 scripts/koi_yinyang.py --preview 30 out.svg # koi frame 30, static
@@ -14,19 +14,19 @@ import sys
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-COLS, ROWS = 120, 50
+COLS, ROWS = 120, 58  # the pond is the top 50 rows, the name sits below
 FONT = 15
 CW, CH = 9, 16  # character cell in px
 ASPECT = CW / CH  # converts columns into row-sized world units
 W, H = COLS * CW, ROWS * CH
 
-KOI_FRAMES = 180
-WATER_FRAMES = 90  # must divide KOI_FRAMES
+KOI_FRAMES = 288
+WATER_FRAMES = 96  # must divide KOI_FRAMES
 DURATION = 12.0  # one full turn of the yin-yang
 BEATS = 12  # tail beats per turn, an integer so the loop is seamless
 
 R = 21.0  # yin-yang radius, in rows
-CX, CY = COLS / 2, ROWS / 2
+CX, CY = COLS / 2, 25
 SPAN = math.radians(150)  # how far round the circle each koi's body reaches
 LIGHT = (-0.45, -0.55, 0.7)
 
@@ -34,6 +34,22 @@ BODY_GLYPHS = "=+*#%@"  # dark to bright
 EDGE_GLYPHS = ".:;'"
 FIN_GLYPHS = ".:'`~"
 RIDGE_GLYPHS = "@8%"
+
+NAME = "PRAGYAN KHADKA"
+TAGLINE = "A R T   ·   W E B   M O T I O N   ·   T E C H"
+NAME_TOP = 49
+FONT_3X5 = {  # each pixel is drawn two columns wide
+    "P": ["###", "#.#", "###", "#..", "#.."],
+    "R": ["##.", "#.#", "##.", "#.#", "#.#"],
+    "A": [".#.", "#.#", "###", "#.#", "#.#"],
+    "G": [".##", "#..", "#.#", "#.#", ".##"],
+    "Y": ["#.#", "#.#", ".#.", ".#.", ".#."],
+    "N": ["#.#", "###", "###", "#.#", "#.#"],
+    "K": ["#.#", "#.#", "##.", "#.#", "#.#"],
+    "H": ["#.#", "#.#", "###", "#.#", "#.#"],
+    "D": ["##.", "#.#", "#.#", "#.#", "##."],
+    " ": ["...", "...", "...", "...", "..."],
+}
 
 KOI = [
     {   # yang: a white koi with black markings and a black spot on its head
@@ -192,7 +208,7 @@ def render_koi(grid, koi, turn, phase):
         nz = math.sqrt(max(0.0, 1 - v * v))
         light = max(0.0, nx * v * LIGHT[0] + ny * v * LIGHT[1] + nz * LIGHT[2])
         b = 0.3 + 0.7 * light
-        level = min(2, int(b * 3))
+        level = 2 if b > 0.6 else 1
         marked = pattern(koi, s, v)
         if abs(s - 0.06) < 0.022 and 0.35 < abs(v) < 0.8:
             grid[r][c] = (*koi["eye"], 3)
@@ -256,7 +272,7 @@ def wake(grid, koi, turn, blocked):
             fade = (1 - behind / 2.2) ** 1.6 * math.exp(-((d - 0.84 * R) / (0.1 * R)) ** 2)
             if fade > 0.12 and grid[r][c] is None and (c, r) not in blocked:
                 glyph = "*" if fade > 0.75 else (":" if fade > 0.4 else ".")
-                grid[r][c] = (glyph, koi["wake"], "a" if fade > 0.4 else "c")
+                grid[r][c] = (glyph, koi["wake"], 0)
 
 
 def rows_svg(grid, classes):
@@ -289,12 +305,31 @@ def koi_frame(i):
     grid = [[None] * COLS for _ in range(ROWS)]
     for koi in KOI:
         render_koi(grid, koi, math.tau * t, math.tau * BEATS * t)
-    for koi in KOI:
-        wake(grid, koi, math.tau * t, ())
     return grid
 
 
-def water_frame(j, koi_grids):
+def footer():
+    """The name in big shaded ASCII letters with the tagline under it."""
+    grid = [[None] * COLS for _ in range(ROWS)]
+    width = len(NAME) * 8 - 2
+    left = (COLS - width) // 2
+    shades = [("@", "#ffffff"), ("@", "#f0f0f0"), ("@", "#d9d9d9"), ("@", "#bfbfbf"), ("@", "#a6a6a6")]
+    for i, letter in enumerate(NAME):
+        for r, line in enumerate(FONT_3X5[letter]):
+            for k, bit in enumerate(line):
+                if bit == "#":
+                    for half in (0, 1):
+                        grid[NAME_TOP + r][left + i * 8 + 2 * k + half] = (*shades[r], 3)
+    start = (COLS - len(TAGLINE)) // 2
+    for k, ch in enumerate(TAGLINE):
+        grid[NAME_TOP + 6][start + k] = (ch, "#9a9a9a", 3)
+    mask = {(c + dc, r + dr) for r in range(NAME_TOP, NAME_TOP + 5) for c in range(left, left + width) if grid[r][c]
+            for dc in (-1, 0, 1) for dr in (-1, 0, 1)}
+    mask |= {(c, NAME_TOP + 6) for c in range(start - 2, start + len(TAGLINE) + 2)}
+    return grid, mask
+
+
+def water_frame(j, koi_grids, mask):
     """Ocean frame j, leaving a hole wherever the koi are while it is on screen."""
     t = j / WATER_FRAMES
     ratio = KOI_FRAMES // WATER_FRAMES
@@ -304,6 +339,11 @@ def water_frame(j, koi_grids):
             for c, cell in enumerate(row):
                 if cell is not None:
                     grid[r][c] = True
+    for c, r in mask:
+        if 0 <= c < COLS and 0 <= r < ROWS:
+            grid[r][c] = True
+    for koi in KOI:  # wakes trail slowly, so they ride on the ocean layer
+        wake(grid, koi, math.tau * t, ())
     water(grid, t, math.tau * t)
     return [[cell if cell is not True else None for cell in row] for row in grid]
 
@@ -339,23 +379,25 @@ def build(only_frame=None):
         return cls
 
     ratio = KOI_FRAMES // WATER_FRAMES
+    name_grid, mask = footer()
+    name_svg = rows_svg(name_grid, classes)
     if only_frame is not None:
         j = round(only_frame / ratio) % WATER_FRAMES
         needed = {k % KOI_FRAMES for k in range(ratio * (j - 1), ratio * (j + 1) + 1)} | {only_frame}
         koi_grids = {k: koi_frame(k) for k in needed}
-        water_svg = rows_svg(water_frame(j, koi_grids), classes)
+        water_svg = rows_svg(water_frame(j, koi_grids, mask), classes)
         koi_svg = rows_svg(koi_grids[only_frame], classes)
-        css, layers = "", f"<g>{water_svg}</g><g>{koi_svg}</g>"
+        css, layers = "", f"<g>{water_svg}</g>{name_svg}<g>{koi_svg}</g>"
     else:
         koi_grids = [koi_frame(i) for i in range(KOI_FRAMES)]
-        water_css, water_layer = flipbook("w", [rows_svg(water_frame(j, koi_grids), classes) for j in range(WATER_FRAMES)])
+        water_css, water_layer = flipbook("w", [rows_svg(water_frame(j, koi_grids, mask), classes) for j in range(WATER_FRAMES)])
         koi_css, koi_layer = flipbook("k", [rows_svg(grid, classes) for grid in koi_grids])
         css = (water_css + koi_css
                + "@media (prefers-reduced-motion:reduce){.w,.k{animation:none}.w0,.k0{opacity:1}}")
-        layers = water_layer + koi_layer
+        layers = water_layer + name_svg + koi_layer
 
     palette = "".join(f".{name}{{fill:{color}}}" for color, name in names.items())
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Two ASCII koi, one white and one black, circling each other as a yin-yang on a rippling ocean">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Two ASCII koi, one white and one black, circling each other as a yin-yang on a rippling ocean, above the name Pragyan Khadka: Art, Web Motion, Tech">
 <style>
 text{{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:{FONT}px;white-space:pre}}
 {palette}.oa{{opacity:.95}}.ob{{opacity:.6}}.oc{{opacity:.3}}

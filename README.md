@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/koi-yinyang.svg" width="100%" alt="Two ASCII koi, one white and one black, circling each other as a yin-yang on a rippling ocean"/>
+<img src="assets/koi-yinyang.svg" width="100%" alt="Two ASCII koi, one white and one black, circling each other as a yin-yang on a rippling ocean, above the name Pragyan Khadka: Art, Web Motion, Tech"/>
 
 </div>
 
